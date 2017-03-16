@@ -11,6 +11,7 @@ export const defaultTerms: Array<string> = [
   'jean claude',
   'michael scott'
 ]
+
 export function fetchGifs (text: string): Promise<any> {
   return fetch(`https://api.giphy.com/v1/gifs/search?q=${ text }&api_key=dc6zaTOxFJmzC`)
     .then(response => response.json())
