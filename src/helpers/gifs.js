@@ -1,25 +1,26 @@
-export const terms = [
+// @flow
+export const defaultTerms: Array<string> = [
   'ace ventura',
+  'arnold',
   'chris farley',
   'crying jordan',
   'dwight',
-  'gasp',
   'fail',
-  'michael scott',
+  'futurama',
+  'gasp',
   'jean claude',
-  'arnold',
-  'futurama'
+  'michael scott'
 ]
-export function fetchGifs (text) {
+export function fetchGifs (text: string): Promise<any> {
   return fetch(`https://api.giphy.com/v1/gifs/search?q=${ text }&api_key=dc6zaTOxFJmzC`)
     .then(response => response.json())
 }
 
-export function randomItemFromArray(array) {
-  return array[Math.floor(Math.random()*array.length)]
+export function randomItemFromArray(items: Array<string>) {
+  return items[Math.floor(Math.random()*items.length)]
 }
 
-export async function getRandomGif (array = terms) {
-  const response = await fetchGifs(randomItemFromArray(array))
+export async function getRandomGif (terms: Array<string> = defaultTerms) {
+  const response = await fetchGifs(randomItemFromArray(terms))
   return randomItemFromArray(response.data)
 }
