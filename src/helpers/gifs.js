@@ -14,7 +14,6 @@ export const defaultTerms: Array<string> = [
 
 export function fetchGifs (text: string): Promise<any> {
   return fetch(`https://api.giphy.com/v1/gifs/search?q=${ text }&api_key=dc6zaTOxFJmzC`)
-    .then(response => response.json())
 }
 
 export function randomItemFromArray(items: Array<string>) {
@@ -23,5 +22,6 @@ export function randomItemFromArray(items: Array<string>) {
 
 export async function getRandomGif (terms: Array<string> = defaultTerms) {
   const response = await fetchGifs(randomItemFromArray(terms))
-  return randomItemFromArray(response.data)
+  const json = await response.json()
+  return randomItemFromArray(json.data)
 }

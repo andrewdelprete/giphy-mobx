@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import {observer, inject} from "mobx-react"
-import {action} from "mobx"
+import {action, extendObservable} from "mobx"
 import {getRandomGif} from './helpers/gifs'
 import remove from 'lodash/remove'
 import Button from './Button'
 import Gif from './Gif'
 
-@inject("gifs")
-@observer
-class App extends Component {
-  @action.bound add() {
-    getRandomGif().then(gif => this.props.gifs.push(gif))
-  }
-
-  @action.bound remove(gif) {
-    remove(this.props.gifs, gif)
-  }
-
-  @action.bound removeLast() {
-    this.props.gifs.pop()
+// Can't test using @decorators :/
+// https://mobx.js.org/best/decorators.html
+// @inject('gifs')
+// @observer
+const App = inject("gifs")(observer(class App extends Component {
+  constructor() {
+    super()
+    extendObservable(this, {
+      add: () => {
+        action(getRandomGif().then(gif => this.props.gifs.push(gif)))
+      },
+      removeItem: (gif) => {
+        action(remove(this.props.gifs, gif))
+      },
+      removeLast: () => {
+        action(this.props.gifs.pop())
+      }
+    })
   }
 
   render() {
@@ -29,19 +34,19 @@ class App extends Component {
           gifs.map((gif, i) => {
             return <Gif
               key={i}
-              onClick={() => this.remove(gif) }
-              style={{ backgroundImage: `url(${gif.images.fixed_width.url}` }}
+              onClick={() => this.removeItem(gif) }
+              style={{ backgroundImage: `url(${gif.images.fixed_width.url})` }}
             />
           }
         )}
         <div style={{ clear: 'both' }}>
-          <Button primary style={{ margin: 0 }} onClick={this.add}>Add Gif</Button>
+          <Button id="add" primary style={{ margin: 0 }} onClick={this.add}>Add Gif</Button>
           <Button onClick={this.removeLast}>Remove Last</Button>
         </div>
       </div>
-    );
+    )
   }
-}
+}))
 
-export default App;
+export default App
 
