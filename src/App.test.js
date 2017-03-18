@@ -2,78 +2,108 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {mount} from 'enzyme';
-import { Provider } from 'mobx-react'
-import { observable } from 'mobx'
 import toJson from 'enzyme-to-json';
+import GifsStore from './stores/GifsStore'
 
-const mockResponse = (status, statusText, body) => {
+function mockResponse (status, statusText, body) {
   return new window.Response(JSON.stringify(body), {
     status: status,
     statusText: statusText,
     headers: {
       'Content-type': 'application/json'
     }
-  });
-};
+  })
+}
 
-it('adds a new gif when clicking add button', async function() {
-  global.fetch = require('jest-fetch-mock')
-
-  const gifs = observable([])
-
+beforeEach(() => {
   const newGif = {
     images: {
       fixed_width: {
-        url: 'add-test.gif'
+        url: 'new-it.gif'
       }
     }
   }
 
-  window.fetch = jest.fn().mockImplementation(() =>
-      Promise.resolve(mockResponse(200, null, { data: [newGif] })))
-
-  const wrapper = mount(
-    <Provider gifs={gifs}>
-      <App />
-    </Provider>,
+  // Mock fetch
+  global.fetch = jest.fn().mockImplementation(() =>
+     Promise.resolve(mockResponse(200, '', { data: [newGif] }))
   )
+})
 
-  wrapper.find('button#add').simulate('click')
-  expect(wrapper.update().find('a')).toHaveLength(1)
+afterEach(() => {
+  global.fetch.mockReset()
+  GifsStore.gifs = []
+})
+
+it('adds a new gif when clicking add button', function(done) {
+  let wrapper = mount(<App GifsStore={GifsStore} />)
+
+  wrapper.find('#add').simulate('click')
+
+  process.nextTick(() => {
+    expect(GifsStore.gifs).toHaveLength(1)
+    expect(toJson(wrapper)).toMatchSnapshot()
+    done()
+  })
+})
+
+it('should remove a gif when clicking it', function() {
+  GifsStore.gifs = [{
+    images: {
+      fixed_width: {
+        url: 'https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif'
+      }
+    }
+  }]
+
+  let wrapper = mount(<App GifsStore={GifsStore} />)
+
+  wrapper.find('a').simulate('click')
+
+  expect(GifsStore.gifs).toHaveLength(0)
+})
+
+it('should remove last gif when clicking it', function() {
+  GifsStore.gifs = [
+    {
+      images: {
+        fixed_width: {
+          url: 'new-gif.gif'
+        }
+      }
+    },
+    {
+      images: {
+        fixed_width: {
+          url: 'new-gif-2.gif'
+        }
+      }
+    }
+  ]
+
+  let wrapper = mount(<App GifsStore={GifsStore} />)
+
+  expect(GifsStore.gifs).toHaveLength(2)
+  wrapper.find('#removeLast').simulate('click')
+  expect(GifsStore.gifs).toHaveLength(1)
+})
+
+it('should render no gifs', () => {
+  let wrapper = mount(<App GifsStore={GifsStore} />)
+  expect(GifsStore.gifs).toHaveLength(0)
+  expect(toJson(wrapper)).toMatchSnapshot()
 });
 
-// it('renders empty gifs', () => {
-// const gifs = observable([])
+it('should render one gif', () => {
+  GifsStore.gifs = [{
+    images: {
+      fixed_width: {
+        url: 'https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif'
+      }
+    }
+  }]
 
-//   var wrapper = mount(
-//     <Provider gifs={gifs}>
-//       <App />
-//     </Provider>,
-//   )
+  var wrapper = mount(<App GifsStore={GifsStore} />)
 
-//   expect(toJson(wrapper)).toMatchSnapshot()
-// });
-
-// it('renders one gif', () => {
-//   const gifs = observable([{
-//     images: {
-//       fixed_width: {
-//         url: 'https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif'
-//       }
-//     }
-//   }])
-
-//   var wrapper = mount(
-//     <Provider gifs={gifs}>
-//       <App />
-//     </Provider>,
-//   )
-
-//   expect(toJson(wrapper)).toMatchSnapshot()
-// });
-
-// jest.mock('./helpers/gifs', () => {
-//   return {
-//     getRandomGif: new Promise()
-//   }
-// })
+  expect(toJson(wrapper)).toMatchSnapshot()
+})

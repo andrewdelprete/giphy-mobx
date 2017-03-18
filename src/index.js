@@ -2,21 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import { observable } from 'mobx'
-import { Provider } from 'mobx-react'
-import { getRandomGif } from './helpers/gifs'
-
-// Our Gif store observable
-const gifs = observable([])
+import GifsStore from './stores/GifsStore'
 
 // Fetch a random gif from giphy and push it
-// onto our store The app will observe the store
+// onto our store. The app will observe the store
 // mutation and rerender the component.
-getRandomGif().then(gif => gifs.push(gif))
+GifsStore.add()
 
 ReactDOM.render(
-  <Provider gifs={gifs}>
-    <App />
-  </Provider>,
+  <App GifsStore={GifsStore} />,
   document.getElementById('root')
 )

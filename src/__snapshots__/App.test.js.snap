@@ -1,0 +1,214 @@
+exports[`test adds a new gif when clicking add button 1`] = `
+<Component
+  GifsStore={
+    GifsStore {
+      "add": [Function],
+      "gifs": Array [
+        Object {
+          "images": Object {
+            "fixed_width": Object {
+              "url": "new-it.gif",
+            },
+          },
+        },
+      ],
+      "remove": [Function],
+      "removeLast": [Function],
+    }
+  }>
+  <div
+    className="App">
+    <div>
+      <styled.a
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundImage": "url(new-it.gif)",
+          }
+        }>
+        <a
+          className="juSYaJ"
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundImage": "url(new-it.gif)",
+            }
+          } />
+      </styled.a>
+    </div>
+    <div
+      style={
+        Object {
+          "clear": "both",
+        }
+      }>
+      <styled.button
+        id="add"
+        onClick={[Function]}
+        primary={true}
+        style={
+          Object {
+            "margin": 0,
+          }
+        }>
+        <button
+          className="kioqWX"
+          id="add"
+          onClick={[Function]}
+          style={
+            Object {
+              "margin": 0,
+            }
+          }>
+          Add Gif
+        </button>
+      </styled.button>
+      <styled.button
+        id="removeLast"
+        onClick={[Function]}>
+        <button
+          className="iOiCLo"
+          id="removeLast"
+          onClick={[Function]}>
+          Remove Last
+        </button>
+      </styled.button>
+    </div>
+  </div>
+</Component>
+`;
+
+exports[`test should render no gifs 1`] = `
+<Component
+  GifsStore={
+    GifsStore {
+      "add": [Function],
+      "gifs": Array [],
+      "remove": [Function],
+      "removeLast": [Function],
+    }
+  }>
+  <div
+    className="App">
+    <div />
+    <div
+      style={
+        Object {
+          "clear": "both",
+        }
+      }>
+      <styled.button
+        id="add"
+        onClick={[Function]}
+        primary={true}
+        style={
+          Object {
+            "margin": 0,
+          }
+        }>
+        <button
+          className="kioqWX"
+          id="add"
+          onClick={[Function]}
+          style={
+            Object {
+              "margin": 0,
+            }
+          }>
+          Add Gif
+        </button>
+      </styled.button>
+      <styled.button
+        id="removeLast"
+        onClick={[Function]}>
+        <button
+          className="iOiCLo"
+          id="removeLast"
+          onClick={[Function]}>
+          Remove Last
+        </button>
+      </styled.button>
+    </div>
+  </div>
+</Component>
+`;
+
+exports[`test should render one gif 1`] = `
+<Component
+  GifsStore={
+    GifsStore {
+      "add": [Function],
+      "gifs": Array [
+        Object {
+          "images": Object {
+            "fixed_width": Object {
+              "url": "https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif",
+            },
+          },
+        },
+      ],
+      "remove": [Function],
+      "removeLast": [Function],
+    }
+  }>
+  <div
+    className="App">
+    <div>
+      <styled.a
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundImage": "url(https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif)",
+          }
+        }>
+        <a
+          className="juSYaJ"
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundImage": "url(https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif)",
+            }
+          } />
+      </styled.a>
+    </div>
+    <div
+      style={
+        Object {
+          "clear": "both",
+        }
+      }>
+      <styled.button
+        id="add"
+        onClick={[Function]}
+        primary={true}
+        style={
+          Object {
+            "margin": 0,
+          }
+        }>
+        <button
+          className="kioqWX"
+          id="add"
+          onClick={[Function]}
+          style={
+            Object {
+              "margin": 0,
+            }
+          }>
+          Add Gif
+        </button>
+      </styled.button>
+      <styled.button
+        id="removeLast"
+        onClick={[Function]}>
+        <button
+          className="iOiCLo"
+          id="removeLast"
+          onClick={[Function]}>
+          Remove Last
+        </button>
+      </styled.button>
+    </div>
+  </div>
+</Component>
+`;
