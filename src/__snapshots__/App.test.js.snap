@@ -2,7 +2,6 @@ exports[`test adds a new gif when clicking add button 1`] = `
 <Component
   GifsStore={
     GifsStore {
-      "add": [Function],
       "gifs": Array [
         Object {
           "images": Object {
@@ -12,8 +11,6 @@ exports[`test adds a new gif when clicking add button 1`] = `
           },
         },
       ],
-      "remove": [Function],
-      "removeLast": [Function],
     }
   }>
   <div
@@ -82,10 +79,7 @@ exports[`test should render no gifs 1`] = `
 <Component
   GifsStore={
     GifsStore {
-      "add": [Function],
       "gifs": Array [],
-      "remove": [Function],
-      "removeLast": [Function],
     }
   }>
   <div
@@ -137,7 +131,6 @@ exports[`test should render one gif 1`] = `
 <Component
   GifsStore={
     GifsStore {
-      "add": [Function],
       "gifs": Array [
         Object {
           "images": Object {
@@ -147,8 +140,6 @@ exports[`test should render one gif 1`] = `
           },
         },
       ],
-      "remove": [Function],
-      "removeLast": [Function],
     }
   }>
   <div

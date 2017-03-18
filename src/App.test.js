@@ -36,7 +36,6 @@ afterEach(() => {
 
 it('adds a new gif when clicking add button', function(done) {
   let wrapper = mount(<App GifsStore={GifsStore} />)
-
   wrapper.find('#add').simulate('click')
 
   // Have to use nextTick() here because of the

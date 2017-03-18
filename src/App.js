@@ -3,7 +3,6 @@ import {observer} from "mobx-react"
 import Button from './Button'
 import Gif from './Gif'
 
-// @observer
 const App = observer(({ GifsStore }) => (
   <div className="App">
     <div>

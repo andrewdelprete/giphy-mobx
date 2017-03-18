@@ -1,24 +1,19 @@
-import { observable } from "mobx"
+import { observable, action } from "mobx"
 import {getRandomGif} from '../helpers/gifs'
 import remove from 'lodash/remove'
 
 class GifsStore {
-  constructor() {
-    this.gifs = observable([])
-    this.add = this.add.bind(this)
-    this.remove = this.remove.bind(this)
-    this.removeLast = this.removeLast.bind(this)
-  }
+  @observable gifs = []
 
-  add () {
+  @action.bound add () {
     getRandomGif().then(gif => this.gifs.push(gif))
   }
 
-  remove (gif) {
+  @action.bound remove (gif) {
     remove(this.gifs, gif)
   }
 
-  removeLast () {
+  @action.bound removeLast () {
     this.gifs.pop()
   }
 }
