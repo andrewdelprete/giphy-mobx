@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
 import {mount} from 'enzyme';
 import toJson from 'enzyme-to-json';
@@ -15,18 +14,18 @@ function mockResponse (status, statusText, body) {
   })
 }
 
-beforeEach(() => {
-  const newGif = {
-    images: {
-      fixed_width: {
-        url: 'new-it.gif'
-      }
+let gifMock = {
+  images: {
+    fixed_width: {
+      url: 'gif-url.gif'
     }
   }
+}
 
+beforeEach(() => {
   // Mock fetch
   global.fetch = jest.fn().mockImplementation(() =>
-     Promise.resolve(mockResponse(200, '', { data: [newGif] }))
+     Promise.resolve(mockResponse(200, '', { data: [gifMock] }))
   )
 })
 
@@ -40,6 +39,9 @@ it('adds a new gif when clicking add button', function(done) {
 
   wrapper.find('#add').simulate('click')
 
+  // Have to use nextTick() here because of the
+  // test not seeing the updated store after
+  // the simulated click and fetch() mock. ~shrug~
   process.nextTick(() => {
     expect(GifsStore.gifs).toHaveLength(1)
     expect(toJson(wrapper)).toMatchSnapshot()
@@ -48,13 +50,7 @@ it('adds a new gif when clicking add button', function(done) {
 })
 
 it('should remove a gif when clicking it', function() {
-  GifsStore.gifs = [{
-    images: {
-      fixed_width: {
-        url: 'https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif'
-      }
-    }
-  }]
+  GifsStore.gifs.push(gifMock)
 
   let wrapper = mount(<App GifsStore={GifsStore} />)
 
@@ -64,22 +60,8 @@ it('should remove a gif when clicking it', function() {
 })
 
 it('should remove last gif when clicking it', function() {
-  GifsStore.gifs = [
-    {
-      images: {
-        fixed_width: {
-          url: 'new-gif.gif'
-        }
-      }
-    },
-    {
-      images: {
-        fixed_width: {
-          url: 'new-gif-2.gif'
-        }
-      }
-    }
-  ]
+  GifsStore.gifs.push(gifMock)
+  GifsStore.gifs.push(gifMock)
 
   let wrapper = mount(<App GifsStore={GifsStore} />)
 
@@ -90,19 +72,13 @@ it('should remove last gif when clicking it', function() {
 
 it('should render no gifs', () => {
   let wrapper = mount(<App GifsStore={GifsStore} />)
+
   expect(GifsStore.gifs).toHaveLength(0)
   expect(toJson(wrapper)).toMatchSnapshot()
 });
 
 it('should render one gif', () => {
-  GifsStore.gifs = [{
-    images: {
-      fixed_width: {
-        url: 'https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif'
-      }
-    }
-  }]
-
+  GifsStore.gifs.push(gifMock)
   var wrapper = mount(<App GifsStore={GifsStore} />)
 
   expect(toJson(wrapper)).toMatchSnapshot()

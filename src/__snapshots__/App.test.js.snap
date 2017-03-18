@@ -7,7 +7,7 @@ exports[`test adds a new gif when clicking add button 1`] = `
         Object {
           "images": Object {
             "fixed_width": Object {
-              "url": "new-it.gif",
+              "url": "gif-url.gif",
             },
           },
         },
@@ -23,7 +23,7 @@ exports[`test adds a new gif when clicking add button 1`] = `
         onClick={[Function]}
         style={
           Object {
-            "backgroundImage": "url(new-it.gif)",
+            "backgroundImage": "url(gif-url.gif)",
           }
         }>
         <a
@@ -31,7 +31,7 @@ exports[`test adds a new gif when clicking add button 1`] = `
           onClick={[Function]}
           style={
             Object {
-              "backgroundImage": "url(new-it.gif)",
+              "backgroundImage": "url(gif-url.gif)",
             }
           } />
       </styled.a>
@@ -142,7 +142,7 @@ exports[`test should render one gif 1`] = `
         Object {
           "images": Object {
             "fixed_width": Object {
-              "url": "https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif",
+              "url": "gif-url.gif",
             },
           },
         },
@@ -158,7 +158,7 @@ exports[`test should render one gif 1`] = `
         onClick={[Function]}
         style={
           Object {
-            "backgroundImage": "url(https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif)",
+            "backgroundImage": "url(gif-url.gif)",
           }
         }>
         <a
@@ -166,7 +166,7 @@ exports[`test should render one gif 1`] = `
           onClick={[Function]}
           style={
             Object {
-              "backgroundImage": "url(https://media1.giphy.com/media/we1KGq2yvN65a/200w.gif)",
+              "backgroundImage": "url(gif-url.gif)",
             }
           } />
       </styled.a>
