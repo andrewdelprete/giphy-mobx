@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {observer} from "mobx-react"
 import Button from './Button'
 import Gif from './Gif'
@@ -7,13 +7,13 @@ const App = observer(({ GifsStore }) => (
   <div className="App">
     <div>
       { GifsStore.gifs.length > 0 &&
-          GifsStore.gifs.map((gif, i) => {
-          return <Gif
+          GifsStore.gifs.map((gif, i) =>
+          <Gif
             key={i}
             onClick={() => GifsStore.remove(gif)}
             style={{ backgroundImage: `url(${gif.images.fixed_width.url})` }}
           />
-        })
+        )
       }
     </div>
     <div style={{ clear: 'both' }}>
@@ -24,4 +24,3 @@ const App = observer(({ GifsStore }) => (
 ))
 
 export default App
-
